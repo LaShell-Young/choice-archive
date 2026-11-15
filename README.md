@@ -1,70 +1,40 @@
 # Choice Archive
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An interactive React component gallery built with Vite and MUI. It pairs common UI patterns—cards, charts, tabs, sliders, tables, pagination, drawers, tooltips, and responsive grids—with live public data.
 
-## Available Scripts
+## Run locally
 
-In the project directory, you can run:
+```sh
+npm install
+npm start
+```
 
-### `npm start`
+Run the production build and tests with `npm run build` and `npm test`. Use `npm run preview` to serve the built site locally.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Data sources
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+API requests are made without keys or an application server. Weather, RandomUser, DiceBear, and Stardew data load in the browser. Sonto and HealthCare.gov feeds are fetched into ignored `public/data` snapshots by `npm run sync:data` because their endpoints do not currently allow browser CORS; `prestart` and `prebuild` refresh those snapshots automatically. Each showcase panel includes its source and documentation link.
 
-### `npm test`
+| Showcase | Data source |
+| --- | --- |
+| Weather and hourly chart | [Open-Meteo](https://open-meteo.com/) |
+| Generated profile illustrations | [DiceBear](https://www.dicebear.com/) |
+| Synthetic profile details | [RandomUser](https://randomuser.me/) |
+| Tech and AI news in five languages | [Sonto](https://sonto.tech/) |
+| Health insurance glossary | [HealthCare.gov Content API](https://www.healthcare.gov/developers/) |
+| Crops and seasons | [Stardew Valley Wiki API](https://www.stardewvalleywiki.net/developers) |
+| Event countdown | [CountdownsHQ](https://countdownshq.com/) |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+CountdownsHQ does not document a public JSON API, so the date picker and ticking clock run locally; the panel links to the site for event information rather than implying an API feed.
 
-### `npm run build`
+## Add another source
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Add source metadata to `API_SOURCES` in `src/data/apiSources.js` (name, homepage, short explanation, and endpoint).
+2. Add a small fetch adapter in that file. Keep request/response normalization there and use the shared HTTP error handling. For sources without CORS, add a fetch-and-stage entry to `scripts/fetch-public-data.mjs` and load that same-origin file in the browser.
+3. Build a focused MUI panel in `src/components/SourceShowcase.js`, include `SourceNote` for attribution, and place the panel in `src/Dashboard.js`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The panels are independent, so each source can have its own loading, retry, and error state.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## GitHub Pages
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+`.github/workflows/deploy.yml` builds the Vite app and publishes `dist` to GitHub Pages on pushes to `main`. The workflow sets Vite's base path to `/choice-archive/`, matching this repository's project site URL. If the repository is renamed, update that path in the workflow.

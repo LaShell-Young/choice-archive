@@ -63,7 +63,7 @@ export default function MainGrid() {
           </Grid>
         ))}
         <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
-          <HighlightedCard />
+          {/* <HighlightedCard /> */}
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
           <SessionsChart />
