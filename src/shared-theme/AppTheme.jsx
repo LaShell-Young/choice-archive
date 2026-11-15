@@ -2,10 +2,10 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-import { inputsCustomizations } from './customizations/inputs';
+import { inputsCustomizations } from './customizations/inputs.jsx';
 import { dataDisplayCustomizations } from './customizations/dataDisplay';
 import { feedbackCustomizations } from './customizations/feedback';
-import { navigationCustomizations } from './customizations/navigation';
+import { navigationCustomizations } from './customizations/navigation.jsx';
 import { surfacesCustomizations } from './customizations/surfaces';
 import { colorSchemes, typography, shadows, shape } from './themePrimitives';
 

@@ -3,9 +3,8 @@ import Divider from '@mui/material/Divider';
 import MuiDrawer, { drawerClasses } from '@mui/material/Drawer';
 import { styled } from '@mui/material/styles';
 import MenuContent from './MenuContent';
-import SelectContent from './SelectContent';
 
-const drawerWidth = 240;
+const drawerWidth = 220;
 
 const Drawer = styled(MuiDrawer)({
   width: drawerWidth,
@@ -29,7 +28,7 @@ export default function SideMenu() {
         },
       }}
     >
-      <Box
+      {/* <Box
         sx={{
           display: 'flex',
           mt: 'calc(var(--template-frame-height, 0px) + 4px)',
@@ -37,7 +36,7 @@ export default function SideMenu() {
         }}
       >
         <SelectContent />
-      </Box>
+      </Box> */}
       <Divider />
       <Box
         sx={{
